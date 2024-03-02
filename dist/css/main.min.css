@@ -86,7 +86,10 @@ main .filters-container .advanced-container {
   opacity: 0;
   overflow: hidden;
   transition: opacity 0.6s;
-  display: none;
+  opacity: 1;
+  height: -moz-fit-content;
+  height: fit-content;
+  overflow: visible;
 }
 main .filters-container .advanced-container.showed {
   height: -moz-fit-content;
@@ -98,6 +101,7 @@ main .filters-container .advanced-container .three {
   width: 100%;
 }
 main .filters-container .advanced-container .four {
+  display: none;
   width: 100%;
 }
 main .filters-container .wrapper {
@@ -487,13 +491,13 @@ main .filters-container .wrapper .element.search-btn {
   cursor: pointer;
 }
 main .filters-container .wrapper .element.remote {
-  width: 190px;
+  width: 200px;
 }
 main .filters-container .wrapper .element.remote.unactive {
   display: none;
 }
 main .filters-container .wrapper .element.relocation {
-  width: 190px;
+  width: 200px;
 }
 main .filters-container .wrapper .element.relocation.unactive {
   display: none;

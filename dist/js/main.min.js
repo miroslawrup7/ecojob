@@ -297,8 +297,6 @@ const addListenerToFilterListsElements = () => {
 const createRecordBoxes = (recordsArray, firstRecordNumber, recordsOnPage) => {
     resultsLoc.replaceChildren();
 
-    console.log("record_boxes", recordsArray)
-
     for (let i = firstRecordNumber; i < recordsOnPage; i++) {
         // colouring of records by type of recruitment
 
@@ -457,7 +455,7 @@ const createFilteredRecordsArray = () => {
 
     let filteredRecordsArray = allRecordsArray;
 
-    console.log("filteredRecordsArray", filteredRecordsArray)
+
 
     // selectedBranches ////////////////
     let selectedBranches = [];
@@ -494,8 +492,6 @@ const createFilteredRecordsArray = () => {
         filteredRecordsArray_1 = filteredRecordsArray;
     }
 
-    console.log("filteredRecordsArray_1  before Job Formes", filteredRecordsArray_1)
-
     // selectedJobForms ////////////////
     let selectedJobForms = [];
 
@@ -529,8 +525,6 @@ const createFilteredRecordsArray = () => {
         filteredRecordsArray_2 = filteredRecordsArray_1;
     }
 
-    console.log("filteredRecordsArray_2 after JobForms before Job Types", filteredRecordsArray_2)
-
     // selectedJobTypes ////////////////
     let selectedjobTypes = Array.from(jobTypeChildrenLoc)
         .filter(function (elem) {
@@ -559,8 +553,6 @@ const createFilteredRecordsArray = () => {
     } else {
         filteredRecordsArray_3 = filteredRecordsArray_2;
     }
-
-    console.log("filteredRecordsArray_3 after job types  before langs", filteredRecordsArray_3)
 
     // selectedLangs ////////////////
     let selectedLangs = [];
@@ -597,8 +589,6 @@ const createFilteredRecordsArray = () => {
         filteredRecordsArray_4 = filteredRecordsArray_3
     }
 
-    console.log("filteredRecordsArray_4 after Langs before Country", filteredRecordsArray_4)
-
     // selectedCountry ////////////////
 
     let selectedCountry = []
@@ -627,8 +617,6 @@ const createFilteredRecordsArray = () => {
 
     // selectedCity & selectedDistance ////////////////
 
-    console.log("filteredRecordsArray_6 after Country before City", filteredRecordsArray_6)
-
     let selectedCity = [];
 
     if (Object.keys(filterConfigData).length !== 0 && filterConfigData.location_city_filter.length) {
@@ -647,8 +635,6 @@ const createFilteredRecordsArray = () => {
             }
         })
     }
-
-    console.log("selctedCity", selectedCity)
     
     let filteredRecordsArray_7 = []
 
@@ -667,17 +653,11 @@ const createFilteredRecordsArray = () => {
         let min_longi
         let max_longi
 
-        console.log("filteredRecordsArray_6 before foreach", filteredRecordsArray_6)
-
         selectedCity.forEach((el_city) => {
             filteredRecordsArray_6.forEach((el_record) => {
-                if (el_record.city === "Sosnowiec") { console.log("el_record", el_record)}
                 if (el_city === el_record.city) {
-                    if (el_record.city === "Sosnowiec") { console.log("el_record2", el_record)}
                     lati = el_record.lati
                     longi = el_record.longi
-                    if (el_record.city === "Sosnowiec") { console.log("lati", lati)}
-                    if (el_record.city === "Sosnowiec") { console.log("longi", longi)}
                     if (Object.keys(filterConfigData).length !== 0 && filterConfigData.location_distance !== null) {
                         selectedDistance = filterConfigData.location_distance
                         distanceLoc.style.display = "none"
@@ -704,52 +684,71 @@ const createFilteredRecordsArray = () => {
     } else {
         filteredRecordsArray_7 = filteredRecordsArray_6
     }
-
-    console.log("filteredRecordsArray_7 after City before Remote", filteredRecordsArray_7)
    
-    // selectedRemote ////////////////
-
     let filteredRecordsArray_8 = [];
 
-        if (remoteInputLoc.checked || filterConfigData.remote_filter) {
-            filteredRecordsArray_7.forEach((el) => {
-                let addFlag = false
+    if (remoteInputLoc.checked && relocationInputLoc.checked) {
+        filteredRecordsArray_8 = filteredRecordsArray_7
+    }
+    
+    
+    if (!remoteInputLoc.checked && !relocationInputLoc.checked) {
 
-                if (el.remote) {
-                    addFlag = true
-                }
+        filteredRecordsArray_8 = filteredRecordsArray_7
 
-                if (addFlag) {
-                    filteredRecordsArray_8.push(el)
-                }
-            })
-        
-        } else {
-            filteredRecordsArray_8 = filteredRecordsArray_7
-        }
+    }
 
-        console.log("filteredRecordsArray_8 after REmote before Location", filteredRecordsArray_8)
-
-    // selectedRelocation ////////////////
-    let filteredRecordsArray_9 = []
-
-    if (relocationInputLoc.checked) {
-        filteredRecordsArray_8.forEach((el) => {
+    if (remoteInputLoc.checked && !relocationInputLoc.checked) {
+    
+        filteredRecordsArray_7.forEach((el) => {
             let addFlag = false
 
-            if (el.relocation) {
+            if (el.country === "Polska") {
                 addFlag = true
             }
 
             if (addFlag) {
-                filteredRecordsArray_9.push(el)
+                filteredRecordsArray_8.push(el)
             }
         })
-    } else {
-        filteredRecordsArray_9 = filteredRecordsArray_8
+
     }
 
-    console.log("filteredRecordsArray_9 after Location before search tekst", filteredRecordsArray_9)
+    
+    if (!remoteInputLoc.checked && relocationInputLoc.checked) {
+    
+        filteredRecordsArray_7.forEach((el) => {
+            let addFlag = false
+
+            if (el.country !== "Polska") {
+                addFlag = true
+            }
+
+            if (addFlag) {
+                filteredRecordsArray_8.push(el)
+            }
+        })
+        
+    }
+
+        // selectedRelocation ////////////////
+        let filteredRecordsArray_9 = []
+
+        // if (relocationInputLoc.checked) {
+        //     filteredRecordsArray_8.forEach((el) => {
+        //         let addFlag = false
+    
+        //         if (el.country !== "Polska") {
+        //             addFlag = true
+        //         }
+    
+        //         if (addFlag) {
+        //             filteredRecordsArray_9.push(el)
+        //         }
+        //     })
+        // } else {
+            filteredRecordsArray_9 = filteredRecordsArray_8
+        // }
 
     // searchText ////////////////
 
@@ -787,8 +786,6 @@ const createFilteredRecordsArray = () => {
         filteredRecordsArray_10 = filteredRecordsArray_9
     }
 
-    console.log("filteredRecordsArray_10 after search tekst before recuirement type", filteredRecordsArray_10)
-
     // selectedRecruitmentType (coloring of records) ////////////////
 
     filteredRecordsArray_11 = []
@@ -813,8 +810,6 @@ const createFilteredRecordsArray = () => {
     }  else {
         filteredRecordsArray_11 = filteredRecordsArray_10
     }
-
-    console.log("filteredRecordsArray_11 after recuirement type", filteredRecordsArray_11)
 
     recordsNumber = filteredRecordsArray_11.length
 
@@ -1580,8 +1575,6 @@ const reworkData = (rawAPIArray) => {
 // gets DATA FROM API ///////////////////////////////////////////////
 const getAPI = (apiPage) => {
     const response = fetch(
-        // "https://rsgrupaprogres.traffit.com/public/job_posts/published",
-        // "https://grupaprogres.traffit.com/public/job_posts/published",
         "https://ecojob.traffit.com/public/job_posts/published",
         {
             mode: "cors",
@@ -1597,36 +1590,11 @@ const getAPI = (apiPage) => {
     return response;
 }
 
-// gets DATA FROM API 2 ///////////////////////////////////////////////
-// const getAPI_2 = (apiPage) => {
-//     const response = fetch(
-//         "https://rsgrupaprogres.traffit.com/public/job_posts/published",
-//         {
-//             mode: "cors",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "X-Request-Page-Size": "100",
-//                 "X-Request-Current-Page": apiPage,
-//                 "X-Request-Sort": '{"sort_by": "id", "direction": "ASC"}',
-//             },
-//         }
-//     );
-
-//     return response;
-// }
-
 const loopOnAPI = (jsonData, filterConfigData) => {
     if (jsonData.length > 0 && apiNumber === 1) {
         rawAPIArray = rawAPIArray.concat(jsonData)
         apiPage++
         createRecordsObjFromAPI(apiPage, filterConfigData)
-    // } else if (jsonData.length === 0  && apiNumber === 1) {
-    //     // apiPage = 1
-    //     // createRecordsObjFromAPI_2(apiPage, filterConfigData)
-    // } else if (jsonData.length > 0  && apiNumber === 2) {
-        // rawAPIArray = rawAPIArray.concat(jsonData)
-        // apiPage++
-        // createRecordsObjFromAPI_2(apiPage, filterConfigData)
     } else {
         reworkData(rawAPIArray)
         recordsNumber = rawAPIArray.length
@@ -1645,20 +1613,9 @@ const loopOnAPI = (jsonData, filterConfigData) => {
 async function createRecordsObjFromAPI(apiPage, filterConfigData) {
     apiNumber = 1
     const rawData = await getAPI(apiPage)
-    console.log(rawData)
-    
     const jsonData = await rawData.json()
-    console.log(jsonData)
-    
     loopOnAPI(jsonData, filterConfigData)
 }
-
-// async function createRecordsObjFromAPI_2(apiPage, filterConfigData) {
-//     apiNumber = 2
-//     const rawData = await getAPI_2(apiPage)
-//     const jsonData = await rawData.json()
-//     loopOnAPI(jsonData, filterConfigData)
-// }
 
 // consider configuration filters ////////////////////////
 const getConfigFilter = () => {
@@ -1670,7 +1627,6 @@ async function readConfigFilter() {
     try {
         const rawData = await getConfigFilter();
         filterConfigData = await rawData.json();
-        console.log(filterConfigData)
         createRecordsObjFromAPI(apiPage, filterConfigData);
         loadLanguages();
     } catch (e) {
