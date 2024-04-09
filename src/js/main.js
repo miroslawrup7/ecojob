@@ -1530,24 +1530,27 @@ const createDataForFilters = (
 const reworkData = (rawAPIArray) => {
     rawAPIArray.forEach((el) => {
 
+        const geolocIndex = el.advert.values.findIndex((elem) => elem.field_id === "geolocation")
+
         let parsedJobLocation;
-        if (el.options.job_location) {
-            parsedJobLocation = JSON.parse(el.options.job_location);
+        if (el.advert.values[geolocIndex].value) {
+            parsedJobLocation = JSON.parse(el.advert.values[geolocIndex].value);
         }
 
         allRecordsArray.push({
             url: el.url,
             name: el.advert.name,
-            branche: el.options.branches,
+            // branche: el.options.branches,
             lang: el.advert.language,
-            jobType: el.options.job_type,
-            visibleRate: parseInt(el.options._Widoczna_stawka),
-            salaryFrom: parseInt(el.options._spodziewane_wynagrodzenie_od),
-            salaryTo: parseInt(el.options._spodziewane_wynagrodzenie_do),
-            remote: el.options.remote,
-            relocation: el.options._relokacja,
-            recruitmentType: el.options._rekrutacja_rodzaj,
-            jobForm: el.options._forma_zatrudnienia,
+            // jobType: el.options.job_type,
+            // visibleRate: parseInt(el.options._Widoczna_stawka),
+            // salaryFrom: parseInt(el.options._spodziewane_wynagrodzenie_od),
+            // salaryTo: parseInt(el.options._spodziewane_wynagrodzenie_do),
+            // remote: el.options.remote,
+            // relocation: el.options._relokacja,
+            // recruitmentType: el.options._rekrutacja_rodzaj,
+            // jobForm: el.options._forma_zatrudnienia,
+
             country: parsedJobLocation.country,
             city: parsedJobLocation.locality,
             lati: parseFloat(parsedJobLocation.latitude),
@@ -1557,13 +1560,13 @@ const reworkData = (rawAPIArray) => {
         });
 
         createDataForFilters(
-            el.options.branches,
-            el.options._forma_zatrudnienia,
-            el.options.job_type,
+            null, // el.options.branches,
+            null, // el.options._forma_zatrudnienia,
+            null, // el.options.job_type,
             el.advert.language,
-            parseInt(el.options._Widoczna_stawka),
-            parseInt(el.options._spodziewane_wynagrodzenie_od),
-            parseInt(el.options._spodziewane_wynagrodzenie_do),
+            null, // parseInt(el.options._Widoczna_stawka),
+            null, // parseInt(el.options._spodziewane_wynagrodzenie_od),
+            null, // parseInt(el.options._spodziewane_wynagrodzenie_do),
             parsedJobLocation.country,
             parsedJobLocation.locality,
             parseFloat(parsedJobLocation.latitude),

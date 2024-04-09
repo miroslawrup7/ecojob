@@ -580,8 +580,11 @@ main .results {
 main .awarded {
   margin: 25px 25px 50px 25px;
 }
-main .awarded .result .top .branche {
+main .awarded .result .top .branche-name .branche {
   margin-left: 10px;
+}
+main .awarded .result .top .branche-name .name {
+  padding-left: 20px;
 }
 main .awarded .result .ribbon-wrap {
   width: 75px;
@@ -597,7 +600,7 @@ main .awarded .result .ribbon-wrap .ribbon {
   font-size: 5px;
   text-align: center;
   padding: 2px 0;
-  background: #ff2166;
+  background: #6bc424;
   color: #fff;
   position: absolute;
   transform: rotate(-45deg);
@@ -611,7 +614,7 @@ main .awarded .result .ribbon-wrap::before, main .awarded .result .ribbon-wrap::
   content: "";
   width: 10px;
   height: 10px;
-  background: #bb1c4e;
+  background: #5aa31d;
   position: absolute;
   z-index: -1;
 }
